@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block banner %}
+    <!-- banner -->
+    <div class="services-breadcrumb">
+		<div class="inner_breadcrumb">
+			<ul class="short">
+				<li>
+					<a href="{% url 'index' %}">Home</a>
+					<i>|</i>
+				</li>
+				<li style="color:black">About Us</li>
+			</ul>
+		</div>
+	</div>
+    <!--//banner -->
+{% endblock banner %}
+
+{% block content %}
+    <!-- top Products -->
+	<section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+		<div class="container-fluid">
+
+			<div class="inner-sec-shop px-lg-4 px-3">
+				<div class="about-content py-lg-5 py-3">
+					<div class="row">
+
+						<div class="col-lg-6 p-0">
+							<img src="{% static 'images/banner-mid1.jpg' %}" alt="Goggles" class="img-fluid">
+						</div>
+						<div class="col-lg-6 about-info">
+							<h3 class="tittle-w3layouts text-left mb-lg-5 mb-3">About Us</h3>
+							<p class="my-xl-4 my-lg-3 my-md-4 my-3">Active Fresh : a dairy mart is a collabarative platform for customers and local dairy shop owners. Right from dairy products - Milk, butter, fro different varities of breads we have it all together for you. Choose from wide range of options in  every category exclusively for finding you the best quality available at minimum cost
+							</p>
+
+							<a href="{% url 'shop' %}" class="btn btn-sm animated-button gibson-three mt-4">Shop Now</a>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="about-content py-lg-5 py-3">
+					<div class="row">
+						
+						<div class="col-lg-6 about-info">
+							<h3 class="tittle-w3layouts text-left mb-lg-5 mb-3">Why Active Fresh</h3>
+							<p class="my-xl-4 my-lg-3 my-md-4 my-3">Active Fresh allows you an escape from crowded shops and welcomes an easy relaxed way of browsing and shoping products from local shops where a common man can afford their bread-butter no more waiting for 24 hours or stuck at traffic jams , standing in long queues etc. it gives everything you need right at your place straight at your home shopping dairy products is now easy way to buy whichever product you want from your monthly shopping list it's now available at our website 
+							</p>
+
+							<a href="{% url 'shop' %}" class="btn btn-sm animated-button gibson-three mt-4">Shop Now</a>
+
+						</div>
+						<div class="col-lg-6 p-0">
+							<img src="{% static 'images/banner-mid4.jpg' %}" alt="Goggles" class="img-fluid">
+						</div>
+					</div>
+				</div>
+				
+				<div class="bottom-sub-grid-content py-lg-5 py-3">
+					<div class="row">
+						<div class="col-lg-3 bottom-sub-grid text-center">
+							
+							<h4 class="sub-tittle-w3layouts my-lg-4 my-3">Step 1</h4>
+							<p>Browse activefresh.com for products else you can also search your wished dairy product straight from your search bar or filter</p>
+							
+						</div>
+						<!-- /.col-lg-4 -->
+						<div class="col-lg-3 bottom-sub-grid text-center">
+							
+							<h4 class="sub-tittle-w3layouts my-lg-4 my-3">Step 2</h4>
+							<p>Add that product to your cart </p>
+							
+						</div>
+						<!-- /.col-lg-4 -->
+						<div class="col-lg-3 bottom-sub-grid text-center">
+							
+							<h4 class="sub-tittle-w3layouts my-lg-4 my-3">Step 3</h4>
+							<p>Select Sutable payment option (cash on delivery / credit card)</p>
+							
+						</div>
+						<!-- /.col-lg-4 -->
+						<div class="col-lg-3 bottom-sub-grid text-center">
+							
+							<h4 class="sub-tittle-w3layouts my-lg-4 my-3">Step 4</h4>
+							<p>Your products will be home delivered as per your order</p>
+							
+						</div>
+					</div>
+				</div>
+				<!-- //grids -->
+				<!--/meddle-->
+				<!--/slide-->
+                <div class="slider-img mid-sec mt-lg-5 mt-2">
+                    <!--//banner-sec-->
+                    <h3 class="tittle-w3layouts text-left my-lg-4 my-3">Featured Products</h3>
+                    {% include "featured-product.html" %}
+                </div>
+                <!--//slider-->
+
+				
+			</div>
+		</div>
+	</section>
+{% endblock content %}

@@ -1,0 +1,221 @@
+{% load static %}
+
+<!--checkout-->
+<section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+	<div class="container">
+		<div class="inner-sec-shop px-lg-4 px-3">
+			<h3 class="tittle-w3layouts my-lg-4 mt-3">Checkout </h3>
+			<div class="checkout-right">
+				<h4>Your shopping cart contains:
+					<span>{{cart.count}} Products</span>
+				</h4>
+				<table class="timetable_sub">
+					<thead>
+						<tr>
+							<th>SL No.</th>
+							<th>Product</th>
+							<th>Quantity</th>
+							<th>Product Name</th>
+							<th>Price</th>
+							<th>Remove</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in cart %}
+							<tr class="rem1">
+								<td class="invert">1</td>
+								<td class="invert">
+									<a href="{% url 'single' %}">
+										{% if item.product.images.0 %}
+                                            <img src="{{item.product.images.0.image.url}}" height="120" width="120" alt=" " class="img-responsive">
+                                        {% else %}
+                                            <img src="{% static 'images/no-image.jpg' %}" height="120" width="120" alt=" " class="img-responsive">
+                                        {% endif %}
+									</a>
+								</td>
+								<td class="invert">
+									<div class="quantity">
+										<div class="quantity-select">
+											<div class="entry value-minus" onClick="change_qty('{{item.id}}', '-1')">&nbsp;</div>
+											<div class="entry value">
+												<span>{{item.quantity}}</span>
+											</div>
+											<div class="entry value-plus active" onClick="change_qty('{{item.id}}', '1')">&nbsp;</div>
+										</div>
+									</div>
+								</td>
+								<td class="invert">{{item.product.title}} </td>
+
+								<td class="invert">&#8377;{{item.totalPrice}}</td>
+								<td class="invert">
+									<div class="rem">
+										<div class="close1" onClick="remove_product('{{item.id}}')"> </div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+						
+						
+					</tbody>
+				</table>
+			</div>
+			<div class="checkout-left row">
+				<div class="col-md-4 checkout-left-basket">
+					<h4>Continue to basket</h4>
+					<ul>
+						{% for item in cart %}
+							<li>{{item.product.title}}
+								<i>-</i>
+								<span>&#8377;{{item.totalPrice}} </span>
+							</li>
+						{% endfor %}
+						<li>Total
+							<i>-</i>
+							<span>&#8377;{{total}} </span>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-8 address_form">
+					<h4>Add a new Details</h4>
+					<form id="address_form" action="{% url 'payment' %}" method="post" class="creditly-card-form agileinfo_form">
+						{% csrf_token %}
+						<section class="creditly-wrapper wrapper">
+							<div class="information-wrapper">
+								<div class="first-row form-group">
+									<div class="controls">
+										<label class="control-label">Full name: </label>
+										<input class="billing-address-name form-control" type="text" name="full_name" placeholder="Full name">
+									</div>
+									<div class="card_number_grids">
+										<div class="card_number_grid_left">
+											<div class="controls">
+												<label class="control-label">Mobile number:</label>
+												<input class="form-control" type="text" name="mobile" placeholder="Mobile number">
+											</div>
+										</div>
+										<div class="card_number_grid_right">
+											<div class="controls">
+												<label class="control-label">Area: </label>
+												<select name="area" class="form-control option-w3ls">
+													<option value="">Select Area</option>
+													{% for area in areas %}
+														<option value="{{area.id}}">{{area.name}}</option>
+													{% endfor %} 
+												</select>
+											</div>
+										</div>
+										<div class="clear"> </div>
+									</div>
+									<div class="controls">
+										<label class="control-label">Address: </label>
+										<input class="form-control" type="text" name="city" placeholder="Town/City">
+									</div>
+									<div class="controls">
+										<label class="control-label">Address type: </label>
+										<select name="address_type" class="form-control option-w3ls">
+											<option value="">Select address type</option>
+											{% for address_type in address_types %}
+												<option value="{{address_type.0}}">{{address_type.1}}</option>	
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<button type="submit" class="submit check_out">Make Payment</button>
+							</div>
+						</section>
+					</form>
+					{% comment %} <div class="checkout-right-basket">
+						<a href="{% url 'payment' %}">Make a Payment </a>
+					</div> {% endcomment %}
+				</div>
+
+				<div class="clearfix"> </div>
+
+			</div>
+
+		</div>
+
+	</div>
+</section>
+<!--//checkout-->
+
+<script>
+	function remove_product(item){
+		$.ajax({
+			url: "{% url 'remove-product' %}",
+			type: 'POST',
+			data: {
+				csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"').val(),
+				item: item,
+			},
+			success: function(response){
+				if (response.msg == 'not_authenticated'){
+					$(".overlay-login").fadeToggle(200);
+					$(this).toggleClass('btn-open').toggleClass('btn-close');
+				}else if (response.msg == 'item_not_found'){
+					console.log(response);
+				}else if (response.msg == 'get_method'){
+					console.log(response);
+				}else {
+					$("#dynamic_content").empty();
+					$("#dynamic_content").append(response);
+				}
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+		return false;
+	}
+
+	function change_qty(item, qty){
+		$.ajax({
+			url: "{% url 'change-qty' %}",
+			type: 'POST',
+			data: {
+				csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"').val(),
+				item: item,
+				qty: qty,
+			},
+			success: function(response){
+				if (response.msg == 'not_authenticated'){
+					$(".overlay-login").fadeToggle(200);
+					$(this).toggleClass('btn-open').toggleClass('btn-close');
+				}else if (response.msg == 'item_not_found'){
+					console.log(response);
+				}else if (response.msg == 'get_method'){
+					console.log(response);
+				}else {
+					$("#dynamic_content").empty();
+					$("#dynamic_content").append(response);
+				}
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+		return false;
+	}
+
+
+	$('#address_form').submit(function(){
+
+		var full_name = $('input[name="full_name"').val();
+		var mobile = $('input[name="mobile"').val();
+		var area = $('input[name="area"').val();
+		var city = $('input[name="city"').val();
+		var city = $('input[name="address_type"').val();
+	
+		if(
+			full_name == '' || mobile == '' || area == '' ||
+			city == '' || address_type == ''
+		){
+			return false;
+		}
+
+		$(this).submit();
+
+	})
+
+
+</script>

@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block banner %}
+    <!-- banner -->
+    <div class="services-breadcrumb">
+        <div class="inner_breadcrumb">
+            <ul class="short">
+                <li>
+                    <a href="{% url 'index' %}">Home</a>
+                    <i>|</i>
+                </li>
+                <li style="color:black">Product Page</li>
+            </ul>
+        </div>
+    </div>
+{% endblock banner %}
+
+{% block content %}
+    <section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+        <div class="container">
+            <div class="inner-sec-shop pt-lg-4 pt-3">
+                <div class="row">
+                        <div class="col-lg-4 single-right-left ">
+                                <div class="grid images_3_of_2">
+                                    <div class="flexslider1">
+                
+                                        <ul class="slides">
+                                            {% for image in product.images %}
+                                                <li data-thumb="{{image.image.url}}">
+                                                    <div class="thumb-image"> <img src="{{image.image.url}}" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 single-right-left simpleCart_shelfItem">
+                                <h3>{{product.title}}</h3>
+                                <p><span class="item_price">&#8377;{{product.mrp}}</span>
+                                    <del>
+                                        {% if product.rate %}
+                                            &#8377;{{product.rate}}
+                                        {% endif %}
+                                    </del>
+                                </p>
+                                <div class="rating1">
+                                    <ul class="stars">
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="description">
+                                    <h5>Check delivery, payment options and charges at your location</h5>
+                                    <form id="check_location" action="{% url 'check-location' %}" method="post">
+                                        <input type="hidden" name="product_id" value="{{product.id}}">
+                                        <input class="form-control" type="text" name="check_inp" placeholder="Please enter..." required="">
+                                        <input type="submit" value="Check">
+                                    </form>
+                                    <h3 id="show_available" style="color:green; display:none;">Available</h3>
+                                    <h3 id="show_not_available" style="color:red; display:none;">Not Available</h3>
+                                </div>
+                                <div class="color-quality">
+                                    <div class="color-quality-right">
+                                        <h5>Quality :</h5>
+                                        <select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
+                                            {% for qty in product_quantity %}
+                                                <option value="{{qty}}">{{qty}} Qty</option>    
+                                            {% endfor %}								
+                                        </select>
+                                    </div>
+                                </div>
+                                {% comment %} <div class="occasional">
+                                    <h5>Types :</h5>
+                                    <div class="colr ert">
+                                        <label class="radio"><input type="radio" name="radio" checked=""><i></i> Irayz Butterfly(Black)</label>
+                                    </div>
+                                    <div class="colr">
+                                        <label class="radio"><input type="radio" name="radio"><i></i> Irayz Butterfly (Grey)</label>
+                                    </div>
+                                    <div class="colr">
+                                        <label class="radio"><input type="radio" name="radio"><i></i> Irayz Butterfly (white)</label>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div> {% endcomment %}
+                                <div class="occasion-cart">
+                                        <div class="googles single-item singlepage">
+                                                <form action="#" method="post">{% csrf_token %}
+                                                    <input type="hidden" name="cmd" value="_cart">
+                                                    <input type="hidden" name="add" value="1">
+                                                    <input type="hidden" name="googles_item" value="Farenheit">
+                                                    <input type="hidden" name="amount" value="575.00">
+                                                    <button type="submit" class="googles-cart pgoogles-cart">
+                                                        Add to Cart
+                                                    </button>
+                                                    
+                                                </form>
+    
+                                            </div>
+                                </div>
+                                <ul class="footer-social text-left mt-lg-4 mt-3">
+                                        <li>Share On : </li>
+                                        <li class="mx-2">
+                                            <a href="#">
+                                                <span class="fab fa-facebook-f"></span>
+                                            </a>
+                                        </li>
+                                        <li class="mx-2">
+                                            <a href="#">
+                                                <span class="fab fa-twitter"></span>
+                                            </a>
+                                        </li>
+                                        <li class="mx-2">
+                                            <a href="#">
+                                                <span class="fab fa-google-plus-g"></span>
+                                            </a>
+                                        </li>
+                                        <li class="mx-2">
+                                            <a href="#">
+                                                <span class="fab fa-linkedin-in"></span>
+                                            </a>
+                                        </li>
+                                        <li class="mx-2">
+                                            <a href="#">
+                                                <span class="fas fa-rss"></span>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+        
+                            </div>
+                            <div class="clearfix"> </div>
+                            <!--/tabs-->
+                            <div class="responsive_tabs">
+                                <div id="horizontalTab">
+                                    <ul class="resp-tabs-list">
+                                        <li>Description</li>
+                                        <li>Reviews</li>
+                                        <li>Information</li>
+                                    </ul>
+                                    <div class="resp-tabs-container">
+                                        <!--/tab_one-->
+                                        <div class="tab1">
+                
+                                            <div class="single_page">
+                                                <p>{{product.description}}                                                                 
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!--//tab_one-->
+                                        <div class="tab2">
+                
+                                            <div class="single_page">
+                                                <div class="bootstrap-tab-text-grids">
+                                                    {% for product_review in product.reviews %}
+                                                        <div class="bootstrap-tab-text-grid">
+                                                            <div class="bootstrap-tab-text-grid-left">
+                                                                {% if product_review.user.socialaccount_set.all.0.get_avatar_url %}
+                                                                    <img src="{{product_review.user.socialaccount_set.all.0.get_avatar_url}}" alt=" " class="img-fluid">
+                                                                {% else %}
+                                                                    <img src="{% static 'images/no-person.jpg' %}" alt=" " class="img-fluid">
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="bootstrap-tab-text-grid-right">
+                                                                <ul>
+                                                                    <li><a href="#">{{product_review.user.username}}</a></li>
+                                                                </ul>
+                                                                <p>{{product_review.message}}</p>
+                                                            </div>
+                                                            <div class="clearfix"> </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                    
+                                                    <div class="add-review">
+                                                        <h4>add a review</h4>
+                                                        <form action="{% url 'review' %}" method="post">{% csrf_token %}
+                                                            <input type="hidden" name="product_id" value="{{product.id}}">
+                                                            <textarea name="message" required=""></textarea>
+                                                            <input type="submit" value="SEND">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                
+                                            </div>
+                                        </div>
+                                        <div class="tab3">
+                
+                                            <div class="single_page">
+                                                <p>{{product.information}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--//tabs-->
+                
+                </div>
+            </div>
+        </div>
+    </section>
+    {% csrf_token %}
+    <script>
+
+        $('#check_location').submit(function(){
+            $.ajax({
+                url: "{% url 'check-location' %}",
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"').val(),
+                    check_inp: $('input[name="check_inp"').val(),
+                    product_id: $('input[name="product_id"').val(),
+                },
+                success: function(response){
+                    if(response.result == '1'){
+                        $('#show_not_available').hide();
+                        $('#show_available').show();
+                    }else if (response.result == '0'){
+                        $('#show_available').hide();
+                        $('#show_not_available').show();
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+            return false;
+        })
+
+    </script>
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends "seller/base1.html" %}
+
+{% block content %}
+    <!-- main content start-->
+    <div id="page-wrapper">
+        <div class="main-page login-page ">
+            <h2 class="title1">Login</h2>
+            <div class="widget-shadow">
+                <div class="login-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <center>
+                                <a class="btn btn-outline-dark" href="/accounts/google/login/?process=login" role="button" style="text-transform:none">
+                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                    Login with Google
+                                </a>
+                            </center>
+                        </div>
+                    </div>
+
+                    <!-- Minified CSS and JS -->
+                    <link   rel="stylesheet" 
+                            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+                            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+                            crossorigin="anonymous">
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+                            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+                            crossorigin="anonymous">
+                    </script>
+
+                    <br>
+                    <center><h5>OR</h5></center>
+                    <br>
+
+
+                    <form class="login" method="POST" action="/accounts/login/">
+                        {% csrf_token %}
+                        <input type="text" class="user" name="login" placeholder="Enter Your Username" autocomplete="username" maxlength="150" required id="id_login">
+                        <input type="password" name="password" class="lock" placeholder="Password" autocomplete="current-password" required id="id_password">
+                        <div class="forgot-grid">
+                            <label class="checkbox"><input id="id_remember" type="checkbox" name="remember" checked=""><i></i>Remember me</label>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <input type="submit" name="Sign In" value="Sign In">
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+{% endblock content %}

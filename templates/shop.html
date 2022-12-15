@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block banner %}
+    <!-- banner -->
+    {% comment %} <div class="banner_inner">
+        
+    </div> {% endcomment %}
+    <div class="services-breadcrumb">
+            <div class="inner_breadcrumb">
+                <ul class="short">
+                    <li>
+                        <a href="{% url 'index' %}">Home</a>
+                        <i>|</i>
+                    </li>
+                    <li style="color:black">Shop</li>
+                </ul>
+            </div>
+        </div>
+    <!--//banner -->
+{% endblock banner %}
+
+{% block content %}
+    <!--/shop-->
+    <section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+        <div class="container-fluid">
+            <div class="inner-sec-shop px-lg-4 px-3">
+                <h3 class="tittle-w3layouts my-lg-4 mt-3">New Arrivals for you </h3>
+                <div class="row">
+                    <!-- product left -->
+                    <div class="side-bar col-lg-3">
+                        
+                        <div class="search-hotel">
+                            <h3 class="agileits-sear-head">Search Here..</h3>
+                            <form id="search_box" action="">
+                                <input class="form-control" type="search" name="search" placeholder="Search here..." required="">
+                                <button type="submit" class="btn1">
+                                        <i class="fas fa-search"></i>
+                                </button>
+                                <div class="clearfix"> </div>
+                            </form>
+                        </div>
+                        <!--preference -->
+                        <div class="left-side">
+                            <h3 class="agileits-sear-head">Deal Offer On</h3>
+                            <ul>
+                                {% for productCategory in shop.productCategories %}
+                                    <li>
+                                        <input type="checkbox" name="categories[]" class="checked" value="{{productCategory.id}}" onChange="make_search()">
+                                        <span class="span">{{productCategory.name}}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- // preference -->
+                    </div>
+                    <!-- //product left -->
+                    <!--/product right-->
+                    <div class="left-ads-display col-lg-9">
+                        <div class="wrapper_top_shop">
+                            <div class="row">
+                                <div class="col-md-6 shop_left">
+                                    <img src="{{shop.images.0.image.url}}" height="255">
+                                </div>
+                                <div class="col-md-6 shop_right">
+                                    <img src="{{shop.images.1.image.url}}" height="255">
+                                </div>
+                            </div>
+                            <div id="shop_product" class="row">
+                                <!-- /womens -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--//product right-->
+                </div>
+                <!--/slide-->
+                <div class="slider-img mid-sec mt-lg-5 mt-2">
+                    <!--//banner-sec-->
+                    <h3 class="tittle-w3layouts text-left my-lg-4 my-3">Featured Products</h3>
+                    {% include "featured-product.html" %}
+                </div>
+                <!--//slider-->
+            </div>
+        </div>
+    </section>
+    {% csrf_token %}
+    <input type="hidden" name="shop_id" value="{{shop.id}}">
+    <!-- price range (top products) -->
+	
+    <script>
+
+        var token = $('input[name="csrfmiddlewaretoken"]').val()
+
+        function make_search(){
+            var my_categories = [];
+            var i = 0;
+            $('input[name="categories[]"]').each(function(){
+                if($(this).is(':checked')){
+                    my_categories[i] = $(this).val();
+                    i++;
+                }
+            });
+
+            var my_discounts = [];
+            var i = 0;
+            $('input[name="discounts[]"]').each(function(){
+                if($(this).is(':checked')){
+                    my_discounts[i] = $(this).val();
+                    i++;
+                }
+            });
+
+            $.ajax("{% url 'shop-product' %}", {
+                type: 'POST',  // http method
+                data: {
+                    csrfmiddlewaretoken: token,
+                    search: $('input[name="search"]').val(),
+                    amount: $('input[name="amount"]').val(),
+                    'categories[]': my_categories,
+                    'discounts[]': my_discounts,
+                    shop_id: $('input[name="shop_id"]').val(),
+                },  // data to submit
+                success: function (data, status, xhr) {
+                    $('#shop_product').html(data);
+                    $('input[name="search"]').val($('input[name="h_search"]').val());
+                    var categories = $('input[name="h_categories"]').val();
+                    $('input[name="categories[]"]').each(function(){
+                        if( categories.includes( $(this).val() ) ){
+                            $(this).attr('checked', true)
+                        }
+                    })
+                    var discounts = $('input[name="h_discounts"]').val();
+                    $('input[name="discounts[]"]').each(function(){
+                        if( discounts.includes( $(this).val() ) ){
+                            $(this).attr('checked', true)
+                        }
+                    })
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                        //$('p').append('Error' + errorMessage);
+                        console.log(errorMessage);
+                }
+            });
+        }
+
+        $(document).ready(function () {   
+            make_search();
+        })
+
+        $('#search_box').submit(function(){
+            make_search();
+            return false;
+        })
+
+
+
+    </script>
+
+{% endblock content %}

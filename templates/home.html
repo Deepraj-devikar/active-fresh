@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block banner %}
+    <!-- banner -->
+    
+{% endblock banner %}
+
+{% block content %}
+    <section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+        <div class="container-fluid">
+            <div class="inner-sec-shop px-lg-4 px-3">
+                <h3 class="tittle-w3layouts my-lg-4 my-4">New Arrivals for you </h3>
+                <div class="row">
+                    <!-- /womens -->
+                    {% for product in products %}
+                        <div class="col-md-3 product-men women_two">
+                            <div class="product-googles-info googles">
+                                <div class="men-pro-item">
+                                    <div class="men-thumb-item">
+                                        {% if product.images.0 %}
+                                            <img src="{{product.images.0.image.url}}" height="100" width="100" class="img-fluid" alt="">
+                                        {% else %}
+                                            <img src="{% static 'images/no-image.jpg' %}" height="100" width="100" class="img-fluid" alt="">
+                                        {% endif %}
+                                        <div class="men-cart-pro">
+                                            <div class="inner-men-cart-pro">
+                                                <a href="{% url 'single' product.id %}" class="link-product-add-cart">Quick View</a>
+                                            </div>
+                                        </div>
+                                        <span class="product-new-top">New</span>
+                                    </div>
+                                    <div class="item-info-product">
+                                        <div class="info-product-price">
+                                            <div class="grid_meta">
+                                                <div class="product_price">
+                                                    <h4>
+                                                        <a href="{% url 'single' product.id %}">{{product.title}}</a>
+                                                    </h4>
+                                                    <div class="grid-price mt-2">
+                                                        <span class="money ">&#8377;{{product.mrp}}</span>
+                                                    </div>
+                                                </div>
+                                                <ul class="stars">
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="googles single-item hvr-outline-out">
+                                                <button 
+                                                    type="button" 
+                                                    class="googles-cart pgoogles-cart" 
+                                                    onClick="add_to_cart('{{product.id}}')">
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- //womens -->
+                
+                <!--//row-->
+                
+                
+                
+                <!--/slide-->
+                <div class="slider-img mid-sec mt-lg-5 mt-2">
+                    <!--//banner-sec-->
+                    <h3 class="tittle-w3layouts text-left my-lg-4 my-3">Featured Products</h3>
+                    {% include "featured-product.html" %}
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+    </section>
+    
+    <div id="show_response">
+    </div>
+
+	<script src="{% static 'js/simplyCountdown.js' %}"></script>
+	<link href="{% static 'css/simplyCountdown.css' %}" rel='stylesheet' type='text/css' />
+	<script>
+		var d = new Date();
+		simplyCountdown('simply-countdown-custom', {
+			year: d.getFullYear(),
+			month: d.getMonth() + 2,
+			day: 25
+		});
+	</script>
+	<!--// Count-down -->
+    {% include "add-to-cart-script.html" %}
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+

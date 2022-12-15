@@ -1,0 +1,35 @@
+{% extends 'seller/base.html' %}
+
+{% block content %}
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="tables">
+                <div class="bs-example widget-shadow" data-example-id="bordered-table"> 
+                    <h4>Bordered Basic Table:</h4>
+                    <table class="table table-bordered"> 
+                        <thead> 
+                            <tr> 
+                                <th>Title</th> 
+                                <th>MRP</th>
+                                <th>Rate</th> 
+                                <th>Quantity</th>
+                            </tr> 
+                        </thead> 
+                        <tbody> 
+                            {% for product in products %}
+                                <tr> 
+                                    <td>{{product.title}}</td>
+                                    <td>
+                                        {{product.mrp}}
+                                    </td> 
+                                    <td>{{product.rate}}</td> 
+                                    <td>{{product.quantity}}</td>
+                                </tr>
+                            {% endfor %} 
+                        </tbody> 
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

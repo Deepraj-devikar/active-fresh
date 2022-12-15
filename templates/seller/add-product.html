@@ -1,0 +1,118 @@
+{% extends "seller/base.html" %}
+
+{% block content %}
+    <div id="page-wrapper">
+        <div class="main-page">
+            <div class="forms">
+                <div class=" form-grids row form-grids-right">
+                    <div class="widget-shadow " data-example-id="basic-forms"> 
+                        <div class="form-title">
+                            <h4>Add Product :</h4>
+                        </div>
+                        <div class="form-body">
+                            <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data"> 
+                                {% csrf_token %}
+                                <div class="form-group"> 
+                                    <label for="inputEmail3" class="col-sm-2 control-label">
+                                        Title
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="Title"> 
+                                    </div> 
+                                </div> 
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        MRP
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <input type="number" name="mrp" class="form-control" id="inputPassword3" placeholder="MRP"> 
+                                    </div> 
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        Rate
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <input type="number" name="rate" class="form-control" id="inputPassword3" placeholder="Rate"> 
+                                    </div> 
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        Discount
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <input type="number" name="discount" class="form-control" id="inputPassword3" placeholder="Discount"> 
+                                    </div> 
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        Quantity
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <input type="number" name="qty" class="form-control" id="inputPassword3" placeholder="Quantity"> 
+                                    </div> 
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        Description
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <textarea name="desc" id="txtarea1" cols="50" rows="4" class="form-control"></textarea> 
+                                    </div> 
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        Information
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <textarea name="info" id="txtarea1" cols="50" rows="4" class="form-control"></textarea> 
+                                    </div> 
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        Menu
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <select name="category" class="form-control">
+                                            <option value="">Select Menu</option>
+                                            {% for product_category in product_categories %}
+                                                <option value="{{product_category.id}}">{{product_category.name}}</option>
+                                            {% endfor %}
+										</select> 
+                                    </div> 
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        Options
+                                    </label> 
+                                    <div class="col-sm-9"> 
+                                        <select name="opts[]" multiple="" class="form-control">
+                                            <option value="">Select Options</option>
+                                            {% for product in products %}
+                                                <option value="{{product.id}}">{{product.title}}</option>
+                                            {% endfor %}
+										</select> 
+                                    </div> 
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="inputPassword3" class="col-sm-2 control-label">
+                                        Images
+                                    </label> 
+                                    <div class="col-sm-9">
+                                        <input type="file" name="imgs[]" class="form-control" id="exampleInputFile" multiple=""> 
+                                        <p class="help-block">Example block-level help text here.</p>
+                                    </div> 
+                                </div>  
+                                <div class="col-sm-offset-2"> 
+                                    <button type="submit" class="btn btn-default">
+                                        Submit
+                                    </button> 
+                                </div> 
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block banner %}
+    <!-- banner -->
+    <div class="services-breadcrumb">
+		<div class="inner_breadcrumb">
+
+			<ul class="short">
+				<li>
+					<a href="{% url 'index' %}">Home</a>
+					<i>|</i>
+				</li>
+				<li style="color:black">404</li>
+			</ul>
+		</div>
+	</div>
+    <!--//banner -->
+{% endblock banner %}
+
+{% block content %}
+    <!--/404-->
+	<section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+		<div class="container-fluid">
+			<div class="error_page">
+				<h4>404</h4>
+				<p>This link dead link</p>
+				<form action="#" method="post">{% csrf_token %}
+					<input class="serch" type="search" name="serch" placeholder="Search here" required="">
+					<button class="btn1">
+						<i class="fa fa-search" aria-hidden="true"></i>
+					</button>
+					<div class="clearfix"> </div>
+				</form>
+				<ul class="footer-social text-center mt-lg-4 mt-3">
+
+					<li class="mx-2">
+						<a href="#">
+							<span class="fab fa-facebook-f"></span>
+						</a>
+					</li>
+					<li class="mx-2">
+						<a href="#">
+							<span class="fab fa-twitter"></span>
+						</a>
+					</li>
+					<li class="mx-2">
+						<a href="#">
+							<span class="fab fa-google-plus-g"></span>
+						</a>
+					</li>
+					<li class="mx-2">
+						<a href="#">
+							<span class="fab fa-linkedin-in"></span>
+						</a>
+					</li>
+					<li class="mx-2">
+						<a href="#">
+							<span class="fas fa-rss"></span>
+						</a>
+					</li>
+					<li class="mx-2">
+						<a href="#">
+							<span class="fab fa-vk"></span>
+						</a>
+					</li>
+				</ul>
+				<a class="b-home" href="{% url 'index' %}">Back to Home</a>
+			</div>
+
+		</div>
+	</section>
+	<!--//404-->
+{% endblock content %}
